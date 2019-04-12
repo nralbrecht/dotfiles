@@ -1,0 +1,30 @@
+#[click]
+#full_text=Click me!
+#command=echo "Got clicked with button $button"
+#color=#F79494
+
+# Guess the weather hourly
+#[weather]
+#command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
+#interval=3600
+#color=#A4C2F4
+
+[disk]
+command=DIR=/; /home/nralbrecht/.config/i3blocks/disk/disk
+label=disk:
+interval=30
+
+[wifi]
+command=INTERFACE=wlp1s0; /home/nralbrecht/.config/i3blocks/wifi/wifi
+label=wifi:
+interval=30
+
+[battery]
+command=/home/nralbrecht/.config/i3blocks/battery/battery
+interval=30
+label=bat:
+
+# Update time every 5 seconds
+[time]
+command=date +"%x %T"
+interval=5
