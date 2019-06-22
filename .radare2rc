@@ -1,0 +1,10 @@
+e hex.cols=16
+
+e asm.bytes = false
+e asm.pseudo = true
+e asm.cmt.right = true
+
+eco monokai
+
+# Use UTF-8 to show cool arrows that do not look like crap :)
+e scr.utf8 = true

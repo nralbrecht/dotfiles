@@ -4,7 +4,7 @@ set $win Mod4
 set $alt Mod1
 
 # Font for window titles
-font pango:Fira Sans Semi-Bold 9
+font pango:Fira Sans Semi Bold 9
 # font pango:DejaVu Sans Mono 8
 
 # Use Mouse+$win to drag floating windows to their wanted position
@@ -210,3 +210,6 @@ bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 # calendar
 for_window [class="Yad"] floating enable
+
+# screenshot
+bindsym Print exec --no-startup-id maim -s | xclip -selection clipboard -t image/png
