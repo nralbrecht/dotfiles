@@ -42,8 +42,8 @@ bindsym $win+Shift+Up move up
 bindsym $win+Shift+Right move right
 
 # switch to next and prev workspaces
-bindsym $win+Tab workspace next
-bindsym $win+Shift+Tab workspace prev
+# bindsym $win+Tab workspace next
+# bindsym $win+Shift+Tab workspace prev
 
 # split in horizontal orientation
 bindsym $win+h split h
@@ -134,8 +134,6 @@ mode $sysmenu {
     bindsym $win+Escape mode "default"
 }
 
-### USER DEFINED
-
 # <clientclass>         <border><bg>    <text>  <indicator>
 client.focused          #196584 #005577 #eeeeee #006891
 client.focused_inactive #565656 #444444 #eeeeee #5E5E5E
@@ -148,6 +146,7 @@ exec_always --no-startup-id feh --randomize --bg-fill /media/data/GFX/Unsplash
 
 bar {
     status_command i3blocks
+    # status_command conky
 
     position top
     tray_output primary
@@ -168,12 +167,9 @@ bar {
 }
 
 # screen related
-exec --no-startup-id "/home/nralbrecht/.screenlayout/default.sh"
 hide_edge_borders both
 
 # autostart
-exec --no-startup-id "(sleep 2; compton -b --config /dev/null --backend xr_glx_hybrid --vsync --vsync-use-glfinish )&"
-
 #exec i3-msg "workspace 1; append_layout /home/nralbrecht/.config/i3/workspace1.json"
 exec --no-startup-id i3-msg "workspace 1; exec --no-startup-id subl"
 exec --no-startup-id i3-msg "workspace 1; layout tabbed; exec --no-startup-id firefox"
@@ -213,3 +209,7 @@ for_window [class="Yad"] floating enable
 
 # screenshot
 bindsym Print exec --no-startup-id maim -s | xclip -selection clipboard -t image/png
+
+# scratchpads
+bindsym $win+Shift+Tab move scratchpad
+bindsym $win+Tab scratchpad show
