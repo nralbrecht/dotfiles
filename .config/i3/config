@@ -67,6 +67,10 @@ bindsym $win+space focus mode_toggle
 
 # focus the parent container
 bindsym $win+a focus parent
+bindsym $win+Shift+a focus child
+
+# media player move to corner
+# bindsym $win+y fullscreen disable; floating enable; resize set 600 400; sticky enable; move window to position 1940 54
 
 # define workspace names
 set $ws1 "1"
@@ -208,7 +212,8 @@ bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 for_window [class="Yad"] floating enable
 
 # screenshot
-bindsym Print exec --no-startup-id maim -s | xclip -selection clipboard -t image/png
+bindsym --release Print exec --no-startup-id maim -s | xclip -selection clipboard -t image/png
+bindsym --release Shift+Print exec --no-startup-id "maim -s $HOME/downloads/$(date +%Y-%m-%d_%H-%M-%S).png"
 
 # scratchpads
 bindsym $win+Shift+Tab move scratchpad

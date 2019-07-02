@@ -12,6 +12,8 @@ alias mkdir='mkdir -p'
 alias diff="diff --color=auto"
 alias grep="grep --color=auto"
 
+alias p="pcmanfm . >/dev/null 2>/dev/null &"
+
 # ls
 alias ls="ls --color --group-directories-first"
 alias l='ls -lFh'
