@@ -1,78 +1,7 @@
-# Windows
+# VARIABLES
 set $win Mod4
-# Alt
 set $alt Mod1
 
-# Font for window titles
-font pango:Fira Sans Semi Bold 9
-# font pango:DejaVu Sans Mono 8
-
-# Use Mouse+$win to drag floating windows to their wanted position
-floating_modifier $win
-
-# kill focused window
-# bindsym Alt_L+F4 kill
-bindsym $win+Shift+q kill
-
-# start dmenu (a program launcher)
-bindsym $win+d exec dmenu_run
-
-# change focus
-bindsym $win+j focus left
-bindsym $win+k focus down
-bindsym $win+l focus up
-bindsym $win+odiaeresis focus right
-
-# alternatively, you can use the cursor keys:
-bindsym $win+Left focus left
-bindsym $win+Down focus down
-bindsym $win+Up focus up
-bindsym $win+Right focus right
-
-# move focused window
-bindsym $win+Shift+j move left
-bindsym $win+Shift+k move down
-bindsym $win+Shift+l move up
-bindsym $win+Shift+odiaeresis move right
-
-# alternatively, you can use the cursor keys:
-bindsym $win+Shift+Left move left
-bindsym $win+Shift+Down move down
-bindsym $win+Shift+Up move up
-bindsym $win+Shift+Right move right
-
-# switch to next and prev workspaces
-# bindsym $win+Tab workspace next
-# bindsym $win+Shift+Tab workspace prev
-
-# split in horizontal orientation
-bindsym $win+h split h
-
-# split in vertical orientation
-bindsym $win+v split v
-
-# enter fullscreen mode for the focused container
-bindsym $win+f fullscreen toggle
-
-# change container layout (stacked, tabbed, toggle split)
-bindsym $win+s layout stacking
-bindsym $win+w layout tabbed
-bindsym $win+e layout toggle split
-
-# toggle tiling / floating
-bindsym $win+Shift+space floating toggle
-
-# change focus between tiling / floating windows
-bindsym $win+space focus mode_toggle
-
-# focus the parent container
-bindsym $win+a focus parent
-bindsym $win+Shift+a focus child
-
-# media player move to corner
-# bindsym $win+y fullscreen disable; floating enable; resize set 600 400; sticky enable; move window to position 1940 54
-
-# define workspace names
 set $ws1 "1"
 set $ws2 "2"
 set $ws3 "3"
@@ -84,7 +13,71 @@ set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 
-# switch to workspace
+# WINDOWS
+font pango:Fira Sans Semi Bold 9
+floating_modifier $win
+hide_edge_borders both
+
+# KILL FOCUSED WINDOW
+bindsym $win+Shift+q kill
+
+# START PROGRAM LAUNCHER
+# bindsym $win+d exec dmenu_run
+bindsym $win+d exec rofi -show run
+
+# CHANGE FOCUS
+bindsym $win+j focus left
+bindsym $win+k focus down
+bindsym $win+l focus up
+bindsym $win+odiaeresis focus right
+
+bindsym $win+Left focus left
+bindsym $win+Down focus down
+bindsym $win+Up focus up
+bindsym $win+Right focus right
+
+# MOVE FOCUSED WINDOW
+bindsym $win+Shift+j move left
+bindsym $win+Shift+k move down
+bindsym $win+Shift+l move up
+bindsym $win+Shift+odiaeresis move right
+
+bindsym $win+Shift+Left move left
+bindsym $win+Shift+Down move down
+bindsym $win+Shift+Up move up
+bindsym $win+Shift+Right move right
+
+# FOCUS THE PARENT CONTAINER
+bindsym $win+a focus parent
+bindsym $win+Shift+a focus child
+
+# CONTAINER LAYOUTS
+bindsym $win+h split h
+bindsym $win+v split v
+bindsym $win+s layout stacking
+bindsym $win+w layout tabbed
+bindsym $win+e layout toggle split
+bindsym $win+f fullscreen toggle
+
+# RESIZING WINDOWS USING KEYBOARD
+bindsym $win+Ctrl+Right resize shrink width 3 px or 3 ppt
+bindsym $win+Ctrl+Up resize grow height 3 px or 3 ppt
+bindsym $win+Ctrl+Down resize shrink height 3 px or 3 ppt
+bindsym $win+Ctrl+Left resize grow width 3 px or 3 ppt
+
+# TOGGLE FLOATING
+bindsym $win+space focus mode_toggle
+
+# SCRATCHPADS
+bindsym $win+Shift+Tab move scratchpad
+bindsym $win+Tab scratchpad show
+bindsym $win+Shift+space floating toggle
+
+# NEXT/PREVIOUS WORKSPACE
+bindsym $alt+Tab focus right
+bindsym $alt+Shift+Tab focus left
+
+# SWITCH TO WORKSPACE
 bindsym $win+1 workspace $ws1
 bindsym $win+2 workspace $ws2
 bindsym $win+3 workspace $ws3
@@ -96,7 +89,7 @@ bindsym $win+8 workspace $ws8
 bindsym $win+9 workspace $ws9
 bindsym $win+0 workspace $ws10
 
-# move focused container to workspace
+# MOVE FOCUSED CONTAINER TO WORKSPACE
 bindsym $win+Shift+1 move container to workspace $ws1
 bindsym $win+Shift+2 move container to workspace $ws2
 bindsym $win+Shift+3 move container to workspace $ws3
@@ -108,7 +101,7 @@ bindsym $win+Shift+8 move container to workspace $ws8
 bindsym $win+Shift+9 move container to workspace $ws9
 bindsym $win+Shift+0 move container to workspace $ws10
 
-# power menu
+# POWER MENU
 set $sysmenu "po[W]eroff - re[B]oot - [L]ogout - [S]uspend - [R]eload - r[E]start"
 bindsym $win+q mode $sysmenu
 
@@ -138,31 +131,24 @@ mode $sysmenu {
     bindsym $win+Escape mode "default"
 }
 
-# <clientclass>         <border><bg>    <text>  <indicator>
+# I3 BAR
 client.focused          #196584 #005577 #eeeeee #006891
 client.focused_inactive #565656 #444444 #eeeeee #5E5E5E
 client.unfocused        #373737 #222222 #bbbbbb #3B3B3B
 client.urgent           #7E1919 #700000 #eeeeee #8A0000
 
-# i3-background
-# exec_always --no-startup-id xsetroot -solid '#111111'
-exec_always --no-startup-id feh --randomize --bg-fill /media/data/GFX/Unsplash
-
 bar {
     status_command i3blocks
-    # status_command conky
 
     position top
     tray_output primary
     font pango:Fira Mono Semi-Bold 9
 
     colors {
-        # <bar>
         background #222222
         separator  #444444
         statusline #eeeeee
 
-        # <workclass>      <border> <bg> <text>
         focused_workspace  #196584 #005577 #eeeeee
         active_workspace   #565656 #444444 #eeeeee
         inactive_workspace #373737 #222222 #bbbbbb
@@ -170,31 +156,25 @@ bar {
     }
 }
 
-# screen related
-hide_edge_borders both
+# BACKGROUND
+exec_always --no-startup-id feh --randomize --bg-fill /media/data/GFX/Unsplash
 
-# autostart
-#exec i3-msg "workspace 1; append_layout /home/nralbrecht/.config/i3/workspace1.json"
-exec --no-startup-id i3-msg "workspace 1; exec --no-startup-id subl"
-exec --no-startup-id i3-msg "workspace 1; layout tabbed; exec --no-startup-id firefox"
-
-#exec i3-msg "workspace 2; append_layout /home/nralbrecht/.config/i3/workspace2.json"
-exec --no-startup-id i3-msg "workspace 2; exec --no-startup-id spotify-adblock"
-exec --no-startup-id i3-msg "workspace 2; exec --no-startup-id discord"
-exec --no-startup-id i3-msg "workspace 2; layout splitv"
-
-# resizing windows using keyboard
-bindsym $win+Ctrl+Right resize shrink width 3 px or 3 ppt
-bindsym $win+Ctrl+Up resize grow height 3 px or 3 ppt
-bindsym $win+Ctrl+Down resize shrink height 3 px or 3 ppt
-bindsym $win+Ctrl+Left resize grow width 3 px or 3 ppt
-
-# programm launcher
-bindsym $win+i exec --no-startup-id xreader
-bindsym $win+o exec --no-startup-id pcmanfm
+# PROGRAMM LAUNCHER
+bindsym $win+i exec --no-startup-id pcmanfm
+bindsym $win+o exec --no-startup-id alacritty --title "Ranger" --command "ranger"
 bindsym $win+Return exec --no-startup-id alacritty
+bindsym XF86Calculator exec --no-startup-id "alacritty --title 'Sage Math' --command 'sage'"
 
-# audio controlls
+# SCREENSHOT
+bindsym --release Print exec --no-startup-id "maim --select --hidecursor | xclip -selection clipboard -t image/png"
+bindsym --release Ctrl+Print exec --no-startup-id "maim --hidecursor -i $(xdotool getactivewindow) | xclip -selection clipboard -t image/png"
+bindsym --release Shift+Print exec --no-startup-id "maim --select --hidecursor $HOME/downloads/$(date +%Y-%m-%d_%H-%M-%S).png"
+bindsym --release Ctrl+Shift+Print exec --no-startup-id "maim --hidecursor -i $(xdotool getactivewindow) $HOME/downloads/$(date +%Y-%m-%d_%H-%M-%S).png"
+
+# AUTOSTART
+exec --no-startup-id "$HOME/.config/i3/startup"
+
+# AUDIO CONTROLLS
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute `pacmd list-sinks | awk '/* index:/{print $3}'` toggle
@@ -202,19 +182,15 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute `pacmd list-sinks
 bindsym $win+$alt+KP_Add exec --no-startup-id spotify-volume + 5
 bindsym $win+$alt+KP_Subtract exec --no-startup-id spotify-volume - 5
 
-# media player controls
+# MEDIA PLAYER CONTROLS
 bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
 bindsym XF86AudioPause exec --no-startup-id playerctl pause
 bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
-# calendar
+# ASSIGNMENTS
+assign [class='discord'] $ws2
 for_window [class="Yad"] floating enable
+for_window [class='Spotify'] move to workspace $ws2
 
-# screenshot
-bindsym --release Print exec --no-startup-id maim -s | xclip -selection clipboard -t image/png
-bindsym --release Shift+Print exec --no-startup-id "maim -s $HOME/downloads/$(date +%Y-%m-%d_%H-%M-%S).png"
-
-# scratchpads
-bindsym $win+Shift+Tab move scratchpad
-bindsym $win+Tab scratchpad show
+exec --no-startup-id "[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources"
