@@ -1,5 +1,5 @@
 ZDOTDIR="${HOME}"
-ZSH_USER_SCRIPTS="${HOME}/.config/zsh/"
+ZSH_USER_SCRIPTS="${HOME}/.config/zsh"
 
 # history
 HISTFILE="${ZDOTDIR}/.zsh_history"
@@ -25,6 +25,6 @@ if [ ! -d "${ZSH_USER_SCRIPTS}" ]; then
     mkdir -p "${ZSH_USER_SCRIPTS}" && echo "# Put your user-specified config here." > "${ZSH_USER_SCRIPTS}/example.zsh"
 fi
 
-for zshd in $(ls -A ${ZSH_USER_SCRIPTS}/^*.(z)sh$); do
+for zshd in $(ls -A ${ZSH_USER_SCRIPTS}/*.(z)sh); do
     source "${zshd}"
 done
