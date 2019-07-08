@@ -188,9 +188,5 @@ bindsym XF86AudioPause exec --no-startup-id playerctl pause
 bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
-# ASSIGNMENTS
-assign [class='discord'] $ws2
-for_window [class="Yad"] floating enable
-for_window [class='Spotify'] move to workspace $ws2
-
+# LOAD X RESOURCES
 exec --no-startup-id "[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources"
