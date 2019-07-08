@@ -4,6 +4,10 @@
 #command=conky
 #interval=persist
 
+[playerctl]
+command=playerctl --player=spotify metadata --format '{{ status }} {{ artist }} - {{ title }}'
+interval=5
+
 [disc_root]
 command=df | grep "/$" | awk '{ print "root " $5 }'
 interval=60
