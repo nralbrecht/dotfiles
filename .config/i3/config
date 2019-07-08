@@ -156,9 +156,6 @@ bar {
     }
 }
 
-# BACKGROUND
-exec_always --no-startup-id feh --randomize --bg-fill /media/data/GFX/Unsplash
-
 # PROGRAMM LAUNCHER
 bindsym $win+i exec --no-startup-id pcmanfm
 bindsym $win+o exec --no-startup-id alacritty --title "Ranger" --command "ranger"

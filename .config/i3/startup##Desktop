@@ -11,3 +11,5 @@ i3-msg "exec --no-startup-id subl"
 i3-msg "exec --no-startup-id discord"
 i3-msg "exec --no-startup-id spotify-adblock"
 
+# BACKGROUND
+i3-msg "exec --no-startup-id feh --randomize --bg-fill /media/data/GFX/Unsplash"
