@@ -1,0 +1,155 @@
+[colors]
+background = #222222
+foreground = #eeeeee
+separator  = #444444
+
+primary  = #0a81f5
+focused  = #196584
+active   = #565656
+inactive = #373737
+urgent   = #7E1919
+
+[font]
+font-0 = Fira Mono SemiBold:size=10;2
+font-1 = siji:size=10;0
+font-2 = dejavusans:size=10
+font-3 = unifont:size=10
+
+[bar/common]
+inherit = font
+
+width = 100%
+height = 18
+fixed-center = true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 1
+line-color = ${colors.active}
+
+padding-left = 0
+padding-right = 1
+module-margin-left = 1
+module-margin-right = 1
+
+; wm-restack = i3
+override-redirect = false
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+separator = "%{F#666}|%{F-}"
+
+[bar/primary]
+inherit = bar/common
+
+monitor = ${env:MONITOR_PRIMARY:DVI-I-1}
+
+modules-left = i3
+modules-center = player-mpris-tail
+modules-right = filesystem cpu date
+
+tray-position = right
+tray-padding = 5
+tray-maxsize = 18
+tray-background = ${root.background}
+
+[bar/secondary]
+inherit = bar/common
+
+monitor = ${env:MONITOR_SECONDARY:DVI-D-0}
+
+modules-left = i3
+modules-center = 
+modules-right = date
+
+[module/player-mpris-tail]
+type = custom/script
+exec = ~/.config/polybar/scripts/player-mpris-tail.py --icon-paused "%{F#0a81f5}▮▮%{F-}" --icon-playing '%{F#0a81f5}▶️%{F-}' -f '{icon} {artist} - {title}'
+tail = true
+label = %output%
+
+[module/filesystem]
+type = internal/fs
+interval = 25
+
+mount-0 = /
+mount-1 = /media/data
+
+label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.foreground}
+
+label-focused = %index%
+label-focused-background = ${colors.background}
+label-focused-padding = 2
+
+label-occupied = %index%
+label-occupied-padding = 2
+
+label-urgent = %index%!
+label-urgent-background = ${colors.urgent}
+label-urgent-padding = 2
+
+label-empty = %index%
+label-empty-foreground = ${colors.foreground}
+label-empty-padding = 2
+
+; Separator in between workspaces
+label-separator = |
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+; Only show workspaces on the same output as the bar
+pin-workspaces = true
+
+label-mode-padding = 0
+label-mode-foreground = #000
+label-mode-background = ${colors.primary}
+
+; focused = Active workspace on focused monitor
+label-focused = %index%
+label-focused-background = ${colors.background}
+label-focused-padding = 2
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %index%
+label-unfocused-padding = 1
+
+; visible = Active workspace on unfocused monitor
+label-visible = %index%
+label-visible-background = ${self.label-focused-background}
+label-visible-padding = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %index%
+label-urgent-background = ${colors.urgent}
+label-urgent-padding = 2
+
+; Separator in between workspaces
+label-separator = |
+label-separator-foreground = ${colors.separator}
+
+[module/cpu]
+type = internal/cpu
+interval = 5
+format-prefix = "%{F#0a81f5}cpu%{F-}: "
+label = %percentage:2%%
+
+[module/date]
+type = custom/script
+
+exec = date "+%Y-%m-%d %H-%M-%S"
+interval = 5
+
+format-prefix = "%{F#0a81f5}date%{F-}: "
+
+click-left = LANG=de_DE.UTF-8 i3-msg -q "exec yad --calendar --width=200 --height=200 --undecorated --fixed --close-on-unfocus --no-buttons --posx=2771 --posy=560 > /dev/null"
+
+[settings]
+screenchange-reload = true

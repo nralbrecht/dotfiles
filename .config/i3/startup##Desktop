@@ -10,6 +10,7 @@ i3-msg "exec --no-startup-id firefox"
 i3-msg "exec --no-startup-id subl"
 i3-msg "exec --no-startup-id discord"
 i3-msg "exec --no-startup-id spotify-adblock"
+i3-msg "exec --no-startup-id $HOME/.config/polybar/launch.sh"
 
 # BACKGROUND
 i3-msg "exec --no-startup-id feh --randomize --bg-fill /media/data/GFX/Unsplash"
