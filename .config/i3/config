@@ -137,25 +137,6 @@ client.focused_inactive #565656 #444444 #eeeeee #5E5E5E
 client.unfocused        #373737 #222222 #bbbbbb #3B3B3B
 client.urgent           #7E1919 #700000 #eeeeee #8A0000
 
-bar {
-    status_command i3blocks
-
-    position top
-    tray_output primary
-    font pango:Fira Mono Semi-Bold 9
-
-    colors {
-        background #222222
-        separator  #444444
-        statusline #eeeeee
-
-        focused_workspace  #196584 #005577 #eeeeee
-        active_workspace   #565656 #444444 #eeeeee
-        inactive_workspace #373737 #222222 #bbbbbb
-        urgent_workspace   #7E1919 #770000 #eeeeee
-    }
-}
-
 # PROGRAMM LAUNCHER
 bindsym $win+i exec --no-startup-id pcmanfm
 bindsym $win+o exec --no-startup-id alacritty --title "Ranger" --command "ranger"
@@ -188,5 +169,9 @@ bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 # LOAD X RESOURCES
 exec --no-startup-id "[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources"
 
+# WINDOW PRESETS
+for_window [class="Yad"] floating enable
+
+# BRIGHTNESS
 bindsym XF86MonBrightnessDown exec light_down
 bindsym XF86MonBrightnessUp exec light_up
