@@ -187,3 +187,6 @@ bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 # LOAD X RESOURCES
 exec --no-startup-id "[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources"
+
+bindsym XF86MonBrightnessDown exec light_down
+bindsym XF86MonBrightnessUp exec light_up
