@@ -7,7 +7,7 @@ autoload -Uz _zplugin
 
 # Theme
 zplugin ice wait'!0' pick''
-zplugin load nralbrecht/gimezsh
+zplugin load nralbrecht/gimmezsh
 
 # Plugins
 zplugin ice wait'1' lucid
