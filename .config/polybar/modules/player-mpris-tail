@@ -1,0 +1,5 @@
+[module/player-mpris-tail]
+type = custom/script
+exec = $HOME/.config/polybar/scripts/player-mpris-tail.py --icon-paused "%{F#0a81f5}%{F-}" --icon-playing '%{F#0a81f5}%{F-}' -f '{icon} {artist} - {title}' -b firefox -b chromium
+tail = true
+label = %output%

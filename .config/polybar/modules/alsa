@@ -1,0 +1,24 @@
+[module/alsa]
+type = internal/alsa
+
+master-soundcard = hw:2
+master-mixer = PCM
+
+mapped = true
+interval = 5
+
+format-volume = <ramp-volume> <label-volume>
+
+label-volume = %percentage%%
+
+format-muted = <label-muted>
+
+label-muted =  %{F#606060}muted%{F-}
+label-muted-foreground = ${colors.primary}
+
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-volume-foreground = ${colors.primary}
+
+click-right = i3-msg -q "exec firefox"

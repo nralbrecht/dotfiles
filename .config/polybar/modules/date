@@ -1,0 +1,10 @@
+[module/date]
+type = custom/script
+
+exec = date "+%Y-%m-%d %H-%M-%S"
+interval = 1
+
+format-prefix = "date%{F#eeeeee}:%{F-} "
+format-prefix-foreground = ${colors.primary}
+
+click-left = LANG=de_DE.UTF-8 i3-msg -q "exec yad --calendar --width=200 --height=200 --undecorated --fixed --close-on-unfocus --no-buttons --posx=2771 --posy=574 > /dev/null"

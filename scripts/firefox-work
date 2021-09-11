@@ -1,0 +1,4 @@
+#!/bin/sh
+
+firefox --profile /home/nralbrecht/.mozilla/firefox/va4zu896.work/
+

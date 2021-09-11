@@ -14,22 +14,17 @@ set $ws9 "9"
 set $ws10 "10"
 
 # WINDOWS
-font pango:Fira Sans Semi Bold 9
+font pango:monospace SemiBold 8.5
 floating_modifier $win
+
 hide_edge_borders both
+default_border pixel 1
 
 # KILL FOCUSED WINDOW
 bindsym $win+Shift+q kill
 
-# START PROGRAM LAUNCHER
-# bindsym $win+d exec dmenu_run
-bindsym $win+d exec rofi -show run
-
 # CHANGE FOCUS
-bindsym $win+j focus left
-bindsym $win+k focus down
-bindsym $win+l focus up
-bindsym $win+odiaeresis focus right
+focus_follows_mouse yes
 
 bindsym $win+Left focus left
 bindsym $win+Down focus down
@@ -37,11 +32,6 @@ bindsym $win+Up focus up
 bindsym $win+Right focus right
 
 # MOVE FOCUSED WINDOW
-bindsym $win+Shift+j move left
-bindsym $win+Shift+k move down
-bindsym $win+Shift+l move up
-bindsym $win+Shift+odiaeresis move right
-
 bindsym $win+Shift+Left move left
 bindsym $win+Shift+Down move down
 bindsym $win+Shift+Up move up
@@ -101,35 +91,14 @@ bindsym $win+Shift+8 move container to workspace $ws8
 bindsym $win+Shift+9 move container to workspace $ws9
 bindsym $win+Shift+0 move container to workspace $ws10
 
-# POWER MENU
-set $sysmenu "po[W]eroff - re[B]oot - [L]ogout - [S]uspend - [R]eload - r[E]start"
-bindsym $win+q mode $sysmenu
+# MOVE FOCUSED WORKSPACE TO OUTPUT
+bindsym $win+Ctrl+Shift+Left move workspace to output left
+bindsym $win+Ctrl+Shift+Right move workspace to output right
+bindsym $win+Ctrl+Shift+Up move workspace to output up
+bindsym $win+Ctrl+Shift+Down move workspace to output down
 
-mode $sysmenu {
-    bindsym w           exec "systemctl poweroff"
-    bindsym $win+w      exec "systemctl poweroff"
-
-    bindsym b           exec "systemctl reboot"
-    bindsym $win+b      exec "systemctl reboot"
-
-    bindsym l           exit
-    bindsym $win+l      exit
-
-    bindsym s           exec "systemctl suspend"
-    bindsym $win+s      exec "systemctl suspend"
-
-    bindsym r           reload
-    bindsym $win+r      reload
-
-    bindsym e           restart
-    bindsym $win+e      restart
-
-    bindsym Return      mode "default"
-    bindsym $win+Return mode "default"
-
-    bindsym Escape      mode "default"
-    bindsym $win+Escape mode "default"
-}
+# SWAP PRIMARY AND SECONDARY DISPLAY
+bindsym $win+x exec --no-startup-id "$HOME/scripts/i3-display-swap.sh DP-2 DP-0"
 
 # I3 BAR
 client.focused          #196584 #005577 #eeeeee #006891
@@ -137,11 +106,18 @@ client.focused_inactive #565656 #444444 #eeeeee #5E5E5E
 client.unfocused        #373737 #222222 #bbbbbb #3B3B3B
 client.urgent           #7E1919 #700000 #eeeeee #8A0000
 
-# PROGRAMM LAUNCHER
-bindsym $win+i exec --no-startup-id pcmanfm
-bindsym $win+o exec --no-startup-id alacritty --title "Ranger" --command "ranger"
-bindsym $win+Return exec --no-startup-id alacritty
-bindsym XF86Calculator exec --no-startup-id "alacritty --title 'Sage Math' --command 'sage'"
+# START PROGRAM LAUNCHER
+bindsym $win+d exec "rofi -modi run,drun -show run -theme nralbrecht"
+bindsym $win+Shift+d exec "rofi -modi run,drun -show drun -theme nralbrecht"
+
+# PROGRAM LAUNCHER
+bindsym $win+l exec --no-startup-id "$HOME/scripts/monitors-sleep.sh"
+bindsym $win+q exec --no-startup-id "$HOME/scripts/rofi-powermenu.sh"
+bindsym $win+o exec --no-startup-id kitty --title "Ranger" "ranger"
+bindsym $win+p exec --no-startup-id rofi -show calc -modi calc -no-show-match -no-sort -theme nralbrecht # rofi-calc
+bindsym $win+Return exec --no-startup-id kitty --title "Kitty"
+bindsym $win+Shift+Return exec --no-startup-id OPEN_RANGER=true kitty --title "Kitty"
+bindsym $win+Ctrl+Return exec --no-startup-id alacritty
 
 # SCREENSHOT
 bindsym --release Print exec --no-startup-id "maim --select --hidecursor | xclip -selection clipboard -t image/png"
@@ -157,17 +133,29 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute `pacmd list-sinks | awk '/* index:/{print $3}'` toggle
 
-bindsym $win+$alt+KP_Add exec --no-startup-id spotify-volume + 5
-bindsym $win+$alt+KP_Subtract exec --no-startup-id spotify-volume - 5
+bindsym $win+$alt+F9 exec --no-startup-id $HOME/scripts/spotify-volume.sh + 5
+bindsym $win+$alt+F10 exec --no-startup-id $HOME/scripts/spotify-volume.sh - 5
 
 # MEDIA PLAYER CONTROLS
-bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
-bindsym XF86AudioPause exec --no-startup-id playerctl pause
-bindsym XF86AudioNext exec --no-startup-id playerctl next
-bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+bindsym XF86AudioPlay exec --no-startup-id playerctl -p spotify play-pause
+bindsym XF86AudioPause exec --no-startup-id playerctl -p spotify pause
+bindsym XF86AudioNext exec --no-startup-id playerctl -p spotify next
+bindsym XF86AudioPrev exec --no-startup-id playerctl -p spotify previous
 
 # LOAD X RESOURCES
 exec --no-startup-id "[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources"
 
 # WINDOW PRESETS
 for_window [class="Yad"] floating enable
+
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+
+for_window [window_role="PictureInPicture"] floating disable, move container to workspace 2
+
+# POSITION WINDOWS
+# for_window [title="Spotify"] move to output left, move down, move down, move down
+# assign [title="Discord Updater"] output left
+# assign [class="discord"] output left
+# for_window [title="Discord Updater"] move to output left
+# for_window [class="discord"] move to output left, move up, move up, move up

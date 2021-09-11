@@ -36,19 +36,19 @@ scrolling:
 tabspaces: 8
 
 font:
-  normal:
-    family: Fira Mono
+  # normal:
+  #   family: monospace
 
-  bold:
-    family: Fira Mono
-    style: Bold
+  # bold:
+  #   family: monospace
+  #   style: Bold
 
-  italic:
-    family: Fira Mono
-    style: Italic
+  # italic:
+  #   family: monospace
+  #   style: Italic
 
   # Point size
-  size: 8.0
+  size: 8.8
 
   # Offset is the extra space around each character.
   offset:
@@ -112,10 +112,6 @@ mouse:
 
   # If this is `true`, the cursor is temporarily hidden when typing.
   hide_when_typing: false
-
-  url:
-    launcher: xdg-open
-    modifiers: None
 
 selection:
   semantic_escape_chars: ",│`|:\"' ()[]{}<>"

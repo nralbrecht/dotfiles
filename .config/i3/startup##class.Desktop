@@ -1,0 +1,35 @@
+#!/bin/bash
+
+function wait-for-window {
+	while ! [[ "$(wmctrl -l)" =~ "$1" ]]
+	do
+		sleep 0.25
+	done
+}
+
+# TITLE BAR
+$HOME/.config/polybar/launch.sh
+
+# BACKGROUND
+i3-msg "exec --no-startup-id feh --randomize --bg-fill /media/backup/gfx/backgrounds/unsplash"
+
+# COMPOSITOR
+i3-msg "exec --no-startup-id picom -b"
+
+# REDSHIFT
+i3-msg "exec --no-startup-id redshift -c ~/.config/redshift/redshift.conf"
+#i3-msg "exec --no-startup-id redshift-gtk"
+
+# START PROGRAMS
+# i3-msg "exec --no-startup-id nm-applet"
+
+i3-msg "workspace 1"
+
+i3-msg "exec --no-startup-id firefox"
+wait-for-window "Mozilla Firefox"
+
+
+i3-msg "workspace 2"
+
+i3-msg "exec --no-startup-id discord"
+i3-msg "exec --no-startup-id spotify-adblock"

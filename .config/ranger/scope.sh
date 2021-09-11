@@ -36,7 +36,7 @@ FILE_EXTENSION_LOWER=$(echo ${FILE_EXTENSION} | tr '[:upper:]' '[:lower:]')
 # Settings
 HIGHLIGHT_SIZE_MAX=262143  # 256KiB
 HIGHLIGHT_TABWIDTH=8
-HIGHLIGHT_STYLE='pablo'
+HIGHLIGHT_STYLE='leo'
 PYGMENTIZE_STYLE='autumn'
 
 
@@ -76,6 +76,10 @@ handle_extension() {
             odt2txt "${FILE_PATH}" && exit 5
             exit 1;;
 
+        json)
+            jq -C . "${FILE_PATH}" && exit 5
+            exit 1;;
+
         # HTML
         htm|html|xhtml)
             # Preview as text conversion
@@ -83,6 +87,23 @@ handle_extension() {
             lynx -dump -- "${FILE_PATH}" && exit 5
             elinks -dump "${FILE_PATH}" && exit 5
             ;; # Continue with next handler on failure
+
+        ini)
+            # Syntax highlight
+            if [[ "$( stat --printf='%s' -- "${FILE_PATH}" )" -gt "${HIGHLIGHT_SIZE_MAX}" ]]; then
+                exit 2
+            fi
+            if [[ "$( tput colors )" -ge 256 ]]; then
+                local pygmentize_format='terminal256'
+                local highlight_format='xterm256'
+            else
+                local pygmentize_format='terminal'
+                local highlight_format='ansi'
+            fi
+            highlight --replace-tabs="${HIGHLIGHT_TABWIDTH}" --out-format="${highlight_format}" \
+                --style="${HIGHLIGHT_STYLE}" --force -- "${FILE_PATH}" && exit 5
+            # pygmentize -f "${pygmentize_format}" -O "style=${PYGMENTIZE_STYLE}" -- "${FILE_PATH}" && exit 5
+            exit 2;;
     esac
 }
 
@@ -102,7 +123,7 @@ handle_image() {
             # needs rotating ("1" means no rotation)...
             if [[ -n "$orientation" && "$orientation" != 1 ]]; then
                 # ...auto-rotate the image according to the EXIF data.
-                convert -- "${FILE_PATH}" -auto-orient "${IMAGE_CACHE_PATH}" && exit 6
+                convert -- "${FILE_PATH}" -auto-orient -flatten "${IMAGE_CACHE_PATH}" && exit 6
             fi
 
             # `w3mimgdisplay` will be called for all images (unless overriden as above),
@@ -195,6 +216,10 @@ handle_mime() {
         video/* | audio/*)
             mediainfo "${FILE_PATH}" && exit 5
             exiftool "${FILE_PATH}" && exit 5
+            exit 1;;
+
+        */json)
+            jq -C . "${FILE_PATH}" && exit 5
             exit 1;;
     esac
 }

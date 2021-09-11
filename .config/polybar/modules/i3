@@ -1,0 +1,31 @@
+[module/i3]
+type = internal/i3
+
+index-sort = true
+wrapping-scroll = false
+
+; Only show workspaces on the same output as the bar
+pin-workspaces = true
+
+format = <label-state>
+format-padding = 1
+
+label-focused = %index%
+label-focused-foreground = ${colors.foreground}
+label-focused-background = ${colors.background}
+label-focused-underline = ${colors.focused}
+label-focused-padding = 2
+
+label-unfocused = %index%
+label-unfocused-padding = 2
+label-unfocused-underline = ${colors.unfocused}
+
+label-visible = %index%
+label-visible-underline = ${colors.unfocused}
+label-visible-padding = 2
+
+label-urgent = %index%
+label-urgent-foreground = ${colors.white}
+label-urgent-background = ${colors.danger}
+label-urgent-underline = ${colors.warning}
+label-urgent-padding = 2

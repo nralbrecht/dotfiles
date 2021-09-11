@@ -1,0 +1,5 @@
+[module/player-mpris-simple]
+type = custom/script
+exec = $HOME/.config/polybar/scripts/player-mpris-simple.sh
+interval = 1
+label = %output%

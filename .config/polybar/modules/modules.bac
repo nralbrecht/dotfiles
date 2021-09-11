@@ -1,0 +1,118 @@
+
+[module/test]
+type = custom/script
+exec = echo "test▶️test"
+interval = 20
+
+[module/player-mpris-simple]
+type = custom/script
+exec = $HOME/.config/polybar/scripts/player-mpris-simple.sh
+interval = 1
+label = %output%
+
+[module/player-mpris-tail]
+type = custom/script
+exec = $HOME/.config/polybar/scripts/player-mpris-tail.py --icon-paused "%{F#0a81f5}%{F-}" --icon-playing '%{F#0a81f5}%{F-}' -f '{icon} {artist} - {title}'
+tail = true
+label = %output%
+
+[module/network]
+type = internal/network
+interface = enp37s0
+interval = 3.0
+udspeed-minwidth = 0
+format-connected = <label-connected>
+format-disconnected = <label-disconnected>
+label-connected = 
+label-connected-foreground = #eefafafa
+label-disconnected = 
+label-disconnected-foreground = #66ffffff
+
+[module/filesystem]
+type = internal/fs
+interval = 25
+
+mount-0 = /
+mount-1 = /media/data
+
+label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.foreground}
+
+label-focused = %index%
+label-focused-background = ${colors.background}
+label-focused-padding = 2
+
+label-occupied = %index%
+label-occupied-padding = 2
+
+label-urgent = %index%!
+label-urgent-background = ${colors.urgent}
+label-urgent-padding = 2
+
+label-empty = %index%
+label-empty-foreground = ${colors.foreground}
+label-empty-padding = 2
+
+; Separator in between workspaces
+label-separator = |
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+; Only show workspaces on the same output as the bar
+pin-workspaces = true
+
+label-mode-padding = 0
+label-mode-foreground = #000
+label-mode-background = ${colors.primary}
+
+; focused = Active workspace on focused monitor
+label-focused = %index%
+label-focused-background = ${colors.background}
+label-focused-padding = 2
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %index%
+label-unfocused-padding = 1
+
+; visible = Active workspace on unfocused monitor
+label-visible = %index%
+label-visible-background = ${self.label-focused-background}
+label-visible-padding = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %index%
+label-urgent-background = ${colors.urgent}
+label-urgent-padding = 2
+
+; Separator in between workspaces
+label-separator = |
+label-separator-foreground = ${colors.separator}
+
+[module/cpu]
+type = internal/cpu
+interval = 5
+format-prefix = "%{F#0a81f5}cpu%{F-}: "
+label = %percentage:2%%
+
+[module/date]
+type = custom/script
+
+exec = date "+%Y-%m-%d %H-%M-%S"
+interval = 5
+
+format-prefix = "%{F#0a81f5}date%{F-}: "
+
+click-left = LANG=de_DE.UTF-8 i3-msg -q "exec yad --calendar --width=200 --height=200 --undecorated --fixed --close-on-unfocus --no-buttons --posx=2771 --posy=574 > /dev/null"
+
+[module/pomodoro]
+type = custom/script
+click-left = $HOME/.config/polybar/scripts/pomodoro-client.py toggle
+click-middle = gnome-pomodoro
+click-right = $HOME/.config/polybar/scripts/pomodoro-client.py start_stop
+exec = $HOME/.config/polybar/scripts/pomodoro-client.py status --icon-text "" --always
+interval = 1

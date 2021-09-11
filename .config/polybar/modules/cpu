@@ -1,0 +1,5 @@
+[module/cpu]
+type = internal/cpu
+interval = 5
+format-prefix = "%{F#0a81f5}cpu%{F-}: "
+label = %percentage:2%%

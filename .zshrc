@@ -25,6 +25,6 @@ if [ ! -d "${ZSH_USER_SCRIPTS}" ]; then
     mkdir -p "${ZSH_USER_SCRIPTS}" && echo "# Put your user-specified config here." > "${ZSH_USER_SCRIPTS}/example.zsh"
 fi
 
-for zshd in $(ls -A ${ZSH_USER_SCRIPTS}/*.(z)sh); do
+for zshd in $(ls -Ar ${ZSH_USER_SCRIPTS}/*.(z)sh); do
     source "${zshd}"
 done
