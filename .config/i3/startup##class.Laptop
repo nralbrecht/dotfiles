@@ -1,10 +1,6 @@
 #!/bin/sh
 
 # START PROGRAMS
-i3-msg "workspace 1; layout tabbed"
+i3-msg "workspace 1"
 i3-msg "exec --no-startup-id firefox"
-i3-msg "exec --no-startup-id subl"
-
-# LIGHT BUTTONS
-bindsym XF86MonBrightnessDown exec light_down
-bindsym XF86MonBrightnessUp exec light_up
+sleep 5 && i3-msg "layout tabbed"
