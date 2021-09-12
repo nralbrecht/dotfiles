@@ -93,10 +93,10 @@ static const keymap_t keys[] = {
 	{ 0,            XK_Down,          i_navigate_frame,     -1 },
 	{ 0,            XK_space,         i_toggle_animation,   None },
 
-	{ 0,            XK_Left,          i_scroll,             DIR_LEFT },
-	{ 0,            XK_Down,          i_scroll,             DIR_DOWN },
-	{ 0,            XK_Up,            i_scroll,             DIR_UP },
-	{ 0,            XK_Right,         i_scroll,             DIR_RIGHT },
+	{ ShiftMask,    XK_Left,          i_scroll,             DIR_LEFT },
+	{ ShiftMask,    XK_Down,          i_scroll,             DIR_DOWN },
+	{ ShiftMask,    XK_Up,            i_scroll,             DIR_UP },
+	{ ShiftMask,    XK_Right,         i_scroll,             DIR_RIGHT },
 
 	{ 0,            XK_F1,            i_rotate,             DEGREE_270 },
 	{ 0,            XK_F2,            i_rotate,             DEGREE_90 },
