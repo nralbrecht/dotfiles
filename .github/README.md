@@ -63,3 +63,25 @@ I use [yadm](https://github.com/TheLocehiliosan/yadm) to manage this repository.
 	- https://www.sublimemerge.com/docs/linux_repositories#pacman
 - sublime-text
 	- https://www.sublimetext.com/docs/linux_repositories.html#pacman
+
+## Firefox
+### Create Profile
+```
+firefox --ProfileManager
+```
+
+### Start Profile Script
+Place either under `~/.local/bin/<profile-name>` or `~/scripts/<profile-name>`.
+```
+#!/bin/sh
+
+firefox --profile path/to/profile/directory
+```
+
+### about:config
+- `widget.gtk.overlay-scrollbars.enabled=false`
+	- Firefox 100 added 'GTK Overlay Scrollbars' wich keeps scroll bar visible when mouse is at window border.
+- `browser.fullscreen.autohide=false`
+	- Allways keep interface visible when activating fullscreen via F11.
+- `webgl.force-enabled=true`
+	- Sometimes fixes webgl after system update.
