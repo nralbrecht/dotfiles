@@ -1,0 +1,32 @@
+[colors]
+; categorys
+background = ${self.black}
+foreground = ${self.white}
+separator  = ${self.gray}
+
+primary  = ${self.blue}
+
+focused  = ${self.blue}
+unfocused = ${self.gray}
+
+success = ${self.green}
+warning = ${self.yellow}
+danger = ${self.red}
+
+; base colors
+transparent = #00000000
+semi-transparent = #55000000
+
+white = #eeeeee
+gray = #444444
+black = #222222
+
+red = #bd2c40
+red-light = #fd4c60
+
+yellow = #e5c250
+
+green = #a3be8c
+
+blue = #0a81f5
+blue-dark = #196584
