@@ -1,6 +1,6 @@
 import asyncio
 import argparse
-from i3ipc import Event, Con
+from i3ipc import Con
 from i3ipc.aio import Connection
 
 class SwapDisplays:
@@ -8,10 +8,6 @@ class SwapDisplays:
 
     async def connect(self):
         self.i3 = await Connection().connect()
-        self.i3.on(Event.WORKSPACE_FOCUS, self.handle_events)
-
-    def handle_events(connection, event):
-        print(event.current.type, event.current.name)
 
     async def get_workspace_container_by_number(self, number: int) -> Con:
         root = await self.i3.get_tree()
