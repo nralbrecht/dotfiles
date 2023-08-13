@@ -56,12 +56,12 @@ bindsym $win+Ctrl+Down resize shrink height 3 px or 3 ppt
 bindsym $win+Ctrl+Left resize grow width 3 px or 3 ppt
 
 # TOGGLE FLOATING
-bindsym $win+space focus mode_toggle
+bindsym $win+Shift+space floating toggle
+bindsym $win+Shift+Ctrl+space floating toggle; move absolute position 1080 0; resize set 1920 2160
 
 # SCRATCHPADS
 bindsym $win+Shift+Tab move scratchpad
 bindsym $win+Tab scratchpad show
-bindsym $win+Shift+space floating toggle
 
 # NEXT/PREVIOUS WORKSPACE
 bindsym $alt+Tab focus right
@@ -78,6 +78,8 @@ bindsym $win+7 workspace $ws7
 bindsym $win+8 workspace $ws8
 bindsym $win+9 workspace $ws9
 bindsym $win+0 workspace $ws10
+
+bindsym $win+less workspace $ws3 workspace $ws2 workspace $ws1
 
 # MOVE FOCUSED CONTAINER TO WORKSPACE
 bindsym $win+Shift+1 move container to workspace $ws1
@@ -98,7 +100,7 @@ bindsym $win+Ctrl+Shift+Up move workspace to output up
 bindsym $win+Ctrl+Shift+Down move workspace to output down
 
 # SWAP PRIMARY AND SECONDARY DISPLAY
-bindsym $win+x exec --no-startup-id "$HOME/scripts/i3-display-swap.sh DP-2 DP-0"
+bindsym $win+x exec --no-startup-id "python3 $HOME/scripts/i3-display-swap.py DP-2 DP-0"
 
 # I3 BAR
 client.focused          #196584 #005577 #eeeeee #006891
@@ -113,10 +115,12 @@ bindsym $win+Shift+d exec "rofi -modi run,drun -show drun -theme nralbrecht"
 # PROGRAM LAUNCHER
 bindsym $win+l exec --no-startup-id "$HOME/scripts/monitors-sleep.sh"
 bindsym $win+q exec --no-startup-id "$HOME/scripts/rofi-powermenu.sh"
-bindsym $win+o exec --no-startup-id kitty --title "Ranger" "ranger"
-bindsym $win+p exec --no-startup-id rofi -show calc -modi calc -no-show-match -no-sort -theme nralbrecht # rofi-calc
+bindsym $win+p exec --no-startup-id rofi -show calc -modi calc -no-show-match -no-sort -no-persist-history -calc-command "echo -n '{result}' | xclip -selection clipboard" -theme nralbrecht > /dev/null # rofi-calc
+bindsym $win+i exec --no-startup-id rofi -show emoji -modi emoji -theme nralbrecht # rofi-emoji
 bindsym $win+Return exec --no-startup-id kitty --title "Kitty"
 bindsym $win+Shift+Return exec --no-startup-id OPEN_RANGER=true kitty --title "Kitty"
+bindsym $win+o exec --no-startup-id OPEN_RANGER=true kitty --title "Kitty"
+bindsym $win+Shift+o exec --no-startup-id kitty --title "Ranger" "ranger"
 bindsym $win+Ctrl+Return exec --no-startup-id alacritty
 
 # SCREENSHOT
@@ -128,13 +132,14 @@ bindsym --release Ctrl+Shift+Print exec --no-startup-id "maim --hidecursor -i $(
 # AUTOSTART
 exec --no-startup-id "$HOME/.config/i3/startup"
 
-# AUDIO CONTROLLS
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute `pacmd list-sinks | awk '/* index:/{print $3}'` toggle
+# AUDIO CONTROLS
+bindsym XF86AudioRaiseVolume exec --no-startup-id $HOME/scripts/spotify-volume.sh + 5
+# bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume `pacmd list-sinks | awk '/* index:/{print $3}'` +5%
 
-bindsym $win+$alt+F9 exec --no-startup-id $HOME/scripts/spotify-volume.sh + 5
-bindsym $win+$alt+F10 exec --no-startup-id $HOME/scripts/spotify-volume.sh - 5
+bindsym XF86AudioLowerVolume exec --no-startup-id $HOME/scripts/spotify-volume.sh - 5
+# bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume `pacmd list-sinks | awk '/* index:/{print $3}'` -5%
+
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute `pacmd list-sinks | awk '/* index:/{print $3}'` toggle
 
 # MEDIA PLAYER CONTROLS
 bindsym XF86AudioPlay exec --no-startup-id playerctl -p spotify play-pause
@@ -151,7 +156,12 @@ for_window [class="Yad"] floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
 
-for_window [window_role="PictureInPicture"] floating disable, move container to workspace 2
+for_window [window_role="PictureInPicture"] border pixel 1, floating disable, move container to workspace 3
+
+for_window [class="discord"] border pixel 1
+
+#for_window [class=.*] no_focus
+focus_on_window_activation urgent
 
 # POSITION WINDOWS
 # for_window [title="Spotify"] move to output left, move down, move down, move down
@@ -159,3 +169,4 @@ for_window [window_role="PictureInPicture"] floating disable, move container to 
 # assign [class="discord"] output left
 # for_window [title="Discord Updater"] move to output left
 # for_window [class="discord"] move to output left, move up, move up, move up
+
